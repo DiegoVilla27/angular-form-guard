@@ -5,7 +5,7 @@ Guard to validate if user can leave a route with form invalid
 
 - This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 ```bash
-ng new angular-rules --style=scss --routing --prefix=rules
+ng new angular-form-invalid --style=scss --routing
 ```
 - Node - Version 20.12.2
 - Npm - Version 10.5.0
