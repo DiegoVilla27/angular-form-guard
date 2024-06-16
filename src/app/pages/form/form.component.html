@@ -1,0 +1,12 @@
+<button (click)="goTo()">Go to home -></button>
+
+<form [formGroup]="form">
+  <input type='text' formControlName='name'/>
+  <app-error-msg [form]="form" [list]="validations.name" [type]="'name'"/>
+  <input type='email' formControlName='email'/>
+  <app-error-msg [form]="form" [list]="validations.email" [type]="'email'"/>
+  <input type='number' formControlName='age'/>
+  <app-error-msg [form]="form" [list]="validations.age" [type]="'age'"/>
+
+  <button (click)="submit()">Send</button>
+</form>
