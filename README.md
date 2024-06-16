@@ -1,6 +1,7 @@
 # AngularFormInvalid 📁
 
-Rules to linters (Angular and TypeScript), prettier, husky and commitlint
+Guard to validate if user can leave a route with form invalid
+
 
 - This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 ```bash
