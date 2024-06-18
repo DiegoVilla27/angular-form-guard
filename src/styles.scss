@@ -1,1 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+body {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #333333;
+  background-color: #f7f7f7;
+}
+
+input {
+  padding: 5px 10px;
+  height: 40px;
+  width: 100%;
+	border: 2px solid;
+  border-radius: 5px;
+}
+
+button {
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333333;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  height: 40px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.is-valid {
+  border-color: green;
+  background-color: rgba(green, 0.05);
+}
+
+.is-invalid {
+  border-color: red;
+  background-color: rgba(red, 0.05);
+}

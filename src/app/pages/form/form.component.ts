@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -7,32 +7,38 @@ import {
   Validators
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Subject } from "rxjs";
 import {
   ErrorMsgComponent,
   IErrorMsg
 } from "../../components/error-msg/error-msg.component";
-import {
-  CanComponentLeaveRoute,
-  TCanComponentLeaveRoute
-} from "../../guards/deactivate/form-changed.guard";
-import { UiService } from "../../services/ui.service";
+import { ClassByStateInputDirective } from "../../directives/class-by-state-input.directive";
+import { HasUnsavedChanges } from "../../guards/deactivate/unsaved-changes.guard";
 import { validations } from "./validations";
 
 @Component({
   selector: "app-form",
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ErrorMsgComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ErrorMsgComponent,
+    ClassByStateInputDirective
+  ],
   templateUrl: "./form.component.html",
   styleUrl: "./form.component.scss"
 })
-export class FormComponent implements CanComponentLeaveRoute {
+export class FormComponent implements HasUnsavedChanges {
   form!: FormGroup;
   validations: IErrorMsg = validations;
+  clearStates: boolean = false;
+
+  @HostListener("window:beforeunload", ["$event"])
+  onBeforeUnloadHandler() {
+    return this.hasUnsavedChanges() === false;
+  }
 
   constructor(
     private _fb: FormBuilder,
-    private _uiSvc: UiService,
     private _router: Router
   ) {
     this.buildForm();
@@ -49,30 +55,26 @@ export class FormComponent implements CanComponentLeaveRoute {
   submit(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.form.reset();
-      this.form.patchValue({
-        name: "",
-        email: "",
-        age: ""
-      });
-      this.form.markAsPristine();
+      this.resetForm();
     }
+  }
+
+  resetForm(): void {
+    this.form.patchValue({
+      name: "",
+      email: "",
+      age: ""
+    });
+    this.form.reset();
+    this.clearStates = true;
+    setTimeout(() => (this.clearStates = false), 0);
   }
 
   goTo(): void {
     this._router.navigateByUrl("/");
   }
 
-  canDeactivate(): TCanComponentLeaveRoute {
-    if (this.form.dirty) {
-      const deactivateSubject: Subject<boolean> = new Subject<boolean>();
-      this._uiSvc.showQuestion(
-        "¿Estás seguro de que quieres abandonar la página? Se perderán los cambios no guardados.",
-        () => deactivateSubject.next(true),
-        () => deactivateSubject.next(false)
-      );
-      return deactivateSubject;
-    }
-    return true;
+  hasUnsavedChanges(): boolean {
+    return this.form.dirty;
   }
 }

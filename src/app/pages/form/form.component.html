@@ -1,12 +1,45 @@
-<button (click)="goTo()">Go to home -></button>
-
+<button (click)="goTo()">Go to home</button>
+<br />
 <form [formGroup]="form">
-  <input type='text' formControlName='name'/>
-  <app-error-msg [form]="form" [list]="validations['name']" [type]="'name'"/>
-  <input type='email' formControlName='email'/>
-  <app-error-msg [form]="form" [list]="validations['email']" [type]="'email'"/>
-  <input type='number' formControlName='age'/>
-  <app-error-msg [form]="form" [list]="validations['age']" [type]="'age'"/>
+  <input
+    appClassByStateInput
+    [loadInitialState]="false"
+    [clearStates]="clearStates"
+    type="text"
+    formControlName="name"
+    placeholder="Name"
+  />
+  <app-error-msg
+    [form]="form"
+    [list]="validations['name']"
+    [type]="'name'"
+  />
+  <input
+    appClassByStateInput
+    [loadInitialState]="false"
+    [clearStates]="clearStates"
+    type="email"
+    formControlName="email"
+    placeholder="Email"
+  />
+  <app-error-msg
+    [form]="form"
+    [list]="validations['email']"
+    [type]="'email'"
+  />
+  <input
+    appClassByStateInput
+    [loadInitialState]="false"
+    [clearStates]="clearStates"
+    type="number"
+    formControlName="age"
+    placeholder="Age"
+  />
+  <app-error-msg
+    [form]="form"
+    [list]="validations['age']"
+    [type]="'age'"
+  />
 
   <button (click)="submit()">Send</button>
 </form>

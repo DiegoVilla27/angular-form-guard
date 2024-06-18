@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { FormComponent } from "./pages/form/form.component";
 import { HomeComponent } from "./pages/home/home.component";
-import { FormChangedGuard } from "./guards/deactivate/form-changed.guard";
+import { UnsavedChangesGuard } from "./guards/deactivate/unsaved-changes.guard";
 
 export const routes: Routes = [
   {
@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: "form",
-    canDeactivate: [FormChangedGuard],
+    canDeactivate: [UnsavedChangesGuard],
     component: FormComponent
   }
 ];
