@@ -8,7 +8,10 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
-import { ErrorMsgComponent } from "../../components/error-msg/error-msg.component";
+import {
+  ErrorMsgComponent,
+  IErrorMsg
+} from "../../components/error-msg/error-msg.component";
 import {
   CanComponentLeaveRoute,
   TCanComponentLeaveRoute
@@ -25,7 +28,7 @@ import { validations } from "./validations";
 })
 export class FormComponent implements CanComponentLeaveRoute {
   form!: FormGroup;
-  validations = validations;
+  validations: IErrorMsg = validations;
 
   constructor(
     private _fb: FormBuilder,
